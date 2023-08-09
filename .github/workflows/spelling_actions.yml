@@ -15,7 +15,7 @@ jobs:
       if: ${{ success() }}
       uses: actions/github-script@v6  
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}  
+        github-token: ${{secrets.PR_SECRET}}  
         script: |
           const { owner, repo } = context.repo;
           const head = `refs/heads/${{ github.ref }}`;
