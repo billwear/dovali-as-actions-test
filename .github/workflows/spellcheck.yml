@@ -7,22 +7,22 @@ jobs:
   spellcheck:
       runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+      steps:
+      - uses: actions/checkout@v2
     
-    - name: Install aspell 
-      run: sudo apt-get install -y aspell aspell-en
+      - name: Install aspell 
+        run: sudo apt-get install -y aspell aspell-en
 
-    - name: Spell check changed files
-      uses: rojopolis/spellcheck-github-actions@0.5.0
-      with:
-        LANG: "en_US"
-        SKIPWORDS: "github,classname,async"
-        CHECKHIDDEN: "true"
-        CHECKSPELLING: "true"
-        CHECKGRAMMAR: "false"
-        CHECKPUNCTUATION: "true"
-        CHECKCAPS: "false"
+      - name: Spell check changed files
+        uses: rojopolis/spellcheck-github-actions@0.5.0
+        with:
+          LANG: "en_US"
+          SKIPWORDS: "github,classname,async"
+          CHECKHIDDEN: "true"
+          CHECKSPELLING: "true"
+          CHECKGRAMMAR: "false"
+          CHECKPUNCTUATION: "true"
+          CHECKCAPS: "false"
   pr:
     needs: spellcheck
     runs-on: ubuntu-latest    
