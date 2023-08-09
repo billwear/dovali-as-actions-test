@@ -11,20 +11,32 @@ jobs:
       run: sudo apt-get install -y aspell aspell-en
     
     - name: Spell check changed files
-     uses: rojopolis/spellcheck-github-actions@0.5.0
-     with:
-       # spellcheck config  
-
+      uses: rojopolis/spellcheck-github-actions@0.5.0
+      with:
+        LANG: "en_US"
+        SKIPWORDS: "github,classname,async"
+        CHECKHIDDEN: "true"
+        CHECKSPELLING: "true"
+        CHECKGRAMMAR: "false"
+        CHECKPUNCTUATION: "true"
+        CHECKCAPS: "false"
   pr:
-  
-    runs-on: ubuntu-latest 
-    
+    needs: spellcheck
+    runs-on: ubuntu-latest    
     steps:
-    - uses: actions/checkout@v2  
+    - uses: actions/checkout@v2
     
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
-      with: 
-       # pr config
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Fix typos"
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        title: "Fix typos"
+        body: "Automated spellcheck fixes"
+        labels: "spellcheck, automated"
+        base: main
+        branch: spellcheck
         
         
